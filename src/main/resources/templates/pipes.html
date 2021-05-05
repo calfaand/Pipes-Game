@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+ <html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Gamestudio</title>
+    <base href="/pipes/new">
+
+    <link rel="stylesheet" href="/css/stylesheet.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css" integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
+
+
+
+</head>
+<body>
+<!--/*@thymesVar id="userController" type="sk.tuke.gamestudio.server.controller.UserController"*/-->
+<!--/*@thymesVar id="pipesController" type="sk.tuke.gamestudio.server.controller.PipesController"*/-->
+<!--/*@thymesVar id="score" type="java.util.List<sk.tuke.gamestudio.entity.Score>"*/-->
+<!--/*@thymesVar id="comment" type="java.util.List<sk.tuke.gamestudio.entity.Comment>"*/-->
+<!--/*@thymesVar id="rating" type="java.util.List<sk.tuke.gamestudio.entity.Rating>"*/-->
+
+
+
+<div th:replace="fragments::header"/>
+<div class="content">
+    <h1>Pipes Game</h1>
+    <div th:if="not ${@pipesController.win or @pipesController.lose} ">
+        <span class="game"  th:utext="${@pipesController.htmlField}" />
+
+        <h3 class="moves">Remaining moves: <p th:text="${@pipesController.getRemainingMoves}"/></h3>
+        <div class="but">
+            <a href="/pipes/new" class="btn btn-primary ng">New Game</a> <br/>
+
+
+        <div class="dropdown">
+            <button class="btn btn-primary dropdown-toggle ng" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Select Level
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" href="/pipes/new?difficulty=1">Level 1</a>
+                <a class="dropdown-item" href="/pipes/new?difficulty=2">Level 2</a>
+                <a class="dropdown-item" href="/pipes/new?difficulty=3">Level 3</a>
+            </div>
+            <a href="/pipes/saveGame" class="btn btn-warning ng">Save Game</a> <br/>
+            <a href="/pipes/loadGame" class="btn btn-warning ng">Load Game</a> <br/>
+
+
+        </div>
+        </div>
+    </div>
+
+
+
+
+
+    <div th:if="${@pipesController.win}">
+        <h2>🏆 You WON!!</h2>
+        <div class="but">
+            <a href="/pipes/new" class="btn btn-primary ng">New Game</a> <br/>
+        </div>
+        </div>
+    <div th:if="${@pipesController.lose}">
+        <h2>😔 GAME OVER! YOU LOSE!</h2>
+        <div class="but">
+            <a href="/pipes/new" class="btn btn-primary">New Game</a> <br/>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="column">
+            <h2>Scores</h2>
+            <ol>
+                <li th:each=" score : ${scores}">
+                    <span th:text="${score.player}"/>:
+                    <span th:text="${score.points}"/>
+    <!--                <span th:text="${score.playedOn}"/>-->
+                </li>
+            </ol>
+            </div>
+
+            <div class="column">
+                <h2>Comments</h2>
+                <ol>
+                <li th:each=" comment : ${comment}">
+                    <span th:text="${comment.player}"/>:
+                    <span th:text="${comment.comment}"/>
+    <!--                <span th:text="${comment.commentedAt}"/>-->
+                </li>
+            </ol>
+            </div>
+            <div class="column">
+                <h2>Rating</h2>
+                <li>Average Rating is: <span th:text="${rating}"/></li>
+        </div>
+
+    </div>
+
+
+<!--   asusdfffffffffffffffffffffffffffffffffffffffffbfffffffffffffffffffffffffffffffffffffffffffffffffffffffff-->
+
+
+
+
+        <div class="row2 ">
+            <button type="submit" class="btn btn-primary addComm">Add Rating and Comment</button>
+
+
+            <div class="ratCom hidden" >
+                <button class="close-modal">&times;</button>
+
+
+                <form action="/pipes/addComms" method="post">
+                    <div class="rating">
+                        <fieldset>
+                        <h3>Rate this game!</h3>
+                        <span class="star-rating star-5" >
+                            <input type="radio"  name = "rating" value="1" id="1" title="text"/><i></i>
+                            <label for="1">1</label>
+
+                            <input type="radio"  name = "rating" value="2" id="2" title="text"/><i></i>
+                            <label for="2">2</label>
+
+                            <input type="radio"  name = "rating" value="3" id="3" title="text"/><i></i>
+                            <label for="3">3</label>
+
+                            <input type="radio" name = "rating"  value="4" id="4" title="text"/><i></i>
+                            <label for="4">4</label>
+
+                            <input type="radio"  name = "rating" value="5" id="5" title="text"/><i></i>
+                            <label for="5">5</label>
+                        </span>
+                        </fieldset>
+
+                    </div>
+
+                    <div class="comment">
+                        <h3>Make comment about game!</h3><br>
+
+                        <label for="comment">
+                            <textarea id="comment" name="contentOfComment" rows="6" cols="50"></textarea>
+                        </label>
+
+                    </div>
+
+                    <button type="submit" class="btn btn-primary addCommRat">Add Rating and Comment</button>
+                </form>
+            </div>
+        </div>
+
+
+
+
+
+</div>
+
+
+
+
+
+<div class="overlay hidden"></div>
+
+
+<script src="/js/app.js"></script>
+<!--<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>-->
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+
+
+<!--<div th:replace="fragments::footer"/>-->
+
+</body>
+</html>

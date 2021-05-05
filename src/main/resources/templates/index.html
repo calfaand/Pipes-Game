@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Gamestudio</title>
+    <link rel="stylesheet" href="css/stylesheet.css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+
+
+</head>
+<body>
+    <div th:replace="fragments::header"/>
+
+<div class="content">
+    <h1>Welcome to Gamestudio!</h1>
+    <h2>My game : </h2>
+    <a class="gamesa" href="/pipes" >Pipes</a>
+
+    <div class="modal-login hidden">
+        <h2>Log in</h2>
+        <button class="close-modal">&times;</button>
+        <div class="login-form">
+            <a th:if="${@userController.logged}" href="/logout">Logout</a><br/>
+            <form th:if="not ${@userController.logged}" action="/login" method="post">
+                Login: <input type="text" name="username"><br/>
+                Password: <input type="password" name="password"><br/>
+                <input class="btn btn-primary subm-btn"  type="submit">
+                <span class="log-problem" th:if="${@userController.neuspesne}">Bad name or password</span>
+
+            </form>
+        </div>
+    </div>
+
+
+
+    <div class="modal-register hidden">
+        <h2>Register</h2>
+        <button class="close-modal">&times;</button>
+        <div class="register-form">
+            <form th:if="not ${@userController.logged}" action="/register" method="post">
+                Username: <input type="text" name="username"><br/>
+                Password:  <input type="password" name="password"><br/>
+                <input class="btn btn-primary subm-btn" type="submit">
+                <span class="log-problem" th:if="${@userController.registered}">You have been registered! <br>
+             Now Log in</span>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+
+
+
+<div th:replace="fragments::footer"/>
+
+
+<div class="overlay hidden"></div>
+<script src="js/script.js"></script>
+
+</body>
+</html>
