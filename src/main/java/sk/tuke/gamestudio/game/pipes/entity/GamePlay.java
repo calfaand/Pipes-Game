@@ -53,14 +53,16 @@ public class GamePlay {
         this.remainingMoves = remainingMoves;
     }
 
-    public List<PipeState> addState(int rowCount, int columnCount){
+    public List<PipeState> addMapOfField(Field field){//int rowCount, int columnCount
+
         states=new ArrayList<>();
+
         for(int i=0; i<rowCount; i++){
             for (int j=0; j< columnCount; j++){
                 states.add(field.getTile(i,j).getState());
             }
         }
-        System.out.println(states);
+        //System.out.println(states);
         return states;
     }
 

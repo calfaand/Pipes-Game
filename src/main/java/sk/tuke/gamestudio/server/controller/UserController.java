@@ -10,6 +10,7 @@ import org.springframework.web.context.WebApplicationContext;
 import sk.tuke.gamestudio.entity.Comment;
 import sk.tuke.gamestudio.entity.Rating;
 import sk.tuke.gamestudio.entity.UserLogin;
+import sk.tuke.gamestudio.game.pipes.core.PipeState;
 import sk.tuke.gamestudio.game.pipes.entity.GamePlay;
 import sk.tuke.gamestudio.service.*;
 
@@ -97,12 +98,7 @@ public class UserController {
 
     }
 
-//    @RequestMapping("/saveGame")
-//    public String saveGame(GamePlay gamePlay){
-//
-//
-//
-//    }
+
 
 
 

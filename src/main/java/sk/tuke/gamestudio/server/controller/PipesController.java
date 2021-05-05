@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -53,6 +54,7 @@ public class PipesController {
            if(field.getState()== GameState.PLAYING){
                field.rotate(parseInt(row), parseInt(column));
 
+
                 if(field.getState() == GameState.SOLVED && userController.isLogged()) {
                     win=true;
                    scoreService.addScore(new Score("pipes", userController.getLoggedUser().getUsername(), field.getScore(), new Date()));
@@ -67,6 +69,14 @@ public class PipesController {
         prepareModel(model);
 
        return "pipes" ;
+    }
+
+    @RequestMapping("/saveGame")
+    public String saveGame(@RequestBody Field field){
+        GamePlay gameplay = new GamePlay();
+        gameplay.addMapOfField(field);
+        System.out.println(gameplay);
+        return "redirect:/";
     }
 
     @RequestMapping("/new")
