@@ -4,17 +4,12 @@ import sk.tuke.gamestudio.game.pipes.core.PipeState;
 
 import javax.persistence.*;
 
-@Entity
 public class State {
 
-    @Id
-    @GeneratedValue
-    private int ident;
 
     private int row;
     private int col;
 
-    @Enumerated(EnumType.STRING)
     private StateType type;
 
     public State(){
@@ -49,7 +44,7 @@ public class State {
     @Override
     public String toString() {
         return "State{" +
-                "ident=" + ident +
+
                 ", type=" + type +
                 ", row=" + row +
                 ", col=" + col +

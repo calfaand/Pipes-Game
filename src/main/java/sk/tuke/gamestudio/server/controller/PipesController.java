@@ -76,16 +76,18 @@ public class PipesController {
         int rowC=field.getRowCount();
         int colC=field.getColumnCount();
         int remM=field.getRemainingMoves();
-        GamePlay gameplay = new GamePlay(rowC, colC, remM);
-        for (int row = 0; row < field.getRowCount(); row++) {
-            for(int col=0; col<field.getColumnCount(); col++){
-                Tile tile = field.getTile(row, col);
-                gameplay.addMapOfField(tile);
+        String logged=userController.getLoggedUser().getUsername();
+        GamePlay gameplay = new GamePlay(rowC, colC, remM,logged);
+      //  for (int row = 0; row < field.getRowCount(); row++) {
+           // for(int col=0; col<field.getColumnCount(); col++){
+               // Tile tile = field.getTile(row, col);
+                //gameplay.addMapOfField(tile);
 
-                System.out.println(tile);
-            }
+                gameplay.addMapOfField(field);
 
-        }
+
+          //  }
+          //}
         System.err.println(gameplay);
         return "pipes";
     }

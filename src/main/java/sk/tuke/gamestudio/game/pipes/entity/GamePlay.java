@@ -1,5 +1,6 @@
 package sk.tuke.gamestudio.game.pipes.entity;
 
+import sk.tuke.gamestudio.entity.UserLogin;
 import sk.tuke.gamestudio.game.pipes.core.Field;
 import sk.tuke.gamestudio.game.pipes.core.PipeState;
 import sk.tuke.gamestudio.game.pipes.core.Tile;
@@ -13,22 +14,34 @@ public class GamePlay {
     private int columnCount;
     private int remainingMoves;
     private List<PipeState> states;
-    private Tile[][] tile;
     private Field field;
+    private String username;
 
-   // private List<StateType> Statetype ;  list celeho pola v aktualnej pozicii
 
-    public GamePlay(){
+    public GamePlay(){}
 
-    }
 
-//int row, int col, int moves
-
-    public GamePlay(int r, int c, int m) {
+    public GamePlay(int r, int c, int m,String name) {
         this.rowCount = r;
         this.columnCount = c;
         this.remainingMoves=m;
+        this.username=name;
         field=new Field(rowCount,columnCount,remainingMoves);
+    }
+
+
+
+    public List<PipeState> addMapOfField(Field field){
+
+        states=new ArrayList<>();
+
+        for(int i=0; i<rowCount; i++){
+            for (int j=0; j< columnCount; j++){
+                states.add(field.getTile(i,j).getState());
+            }
+        }
+
+        return states;
     }
 
     public int getRowCount() {
@@ -55,28 +68,12 @@ public class GamePlay {
         this.remainingMoves = remainingMoves;
     }
 
-    public List<PipeState> addMapOfField(Tile tile){
-
-        states=new ArrayList<>();
-
-        for(int i=0; i<rowCount; i++){
-            for (int j=0; j< columnCount; j++){
-                states.add(field.getTile(i,j).getState());
-            }
-        }
-
-        return states;
-    }
-
-
     @Override
     public String toString() {
         return "GamePlay{" +
                 "rowCount=" + rowCount +
                 ", columnCount=" + columnCount +
                 ", remainingMoves=" + remainingMoves +
-                ", states=" + states +
-                ", tile=" + tile +
                 ", field=" + field +
                 '}';
     }
