@@ -1,5 +1,6 @@
 package sk.tuke.gamestudio.game.pipes.entity;
 
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 import sk.tuke.gamestudio.entity.UserLogin;
 import sk.tuke.gamestudio.game.pipes.core.Field;
 import sk.tuke.gamestudio.game.pipes.core.PipeState;
