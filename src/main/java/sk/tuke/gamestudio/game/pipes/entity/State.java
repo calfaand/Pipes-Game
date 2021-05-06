@@ -1,10 +1,12 @@
 package sk.tuke.gamestudio.game.pipes.entity;
 
-import sk.tuke.gamestudio.game.pipes.core.PipeState;
 
-import javax.persistence.*;
+
 
 public class State {
+
+
+    private int ident;
 
 
     private int row;
@@ -14,6 +16,7 @@ public class State {
 
     public State(){
     }
+
     public State (StateType type, int row, int col){
         this.type=type;
         this.row=row;

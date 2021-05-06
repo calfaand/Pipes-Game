@@ -5,16 +5,26 @@ import sk.tuke.gamestudio.game.pipes.core.Field;
 import sk.tuke.gamestudio.game.pipes.core.PipeState;
 import sk.tuke.gamestudio.game.pipes.core.Tile;
 
+import javax.annotation.Resource;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
 public class GamePlay {
 
     private int rowCount;
     private int columnCount;
     private int remainingMoves;
+
+    @ElementCollection
     private List<PipeState> states;
-    private Field field;
+
+
+    @Transient
+    private   Field field;
+
+    @Id
     private String username;
 
 
@@ -30,6 +40,17 @@ public class GamePlay {
     }
 
 
+    public void setField(Field field) {
+        this.field = field;
+    }
+
+    public void setStates(List<PipeState> states) {
+        this.states = states;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
     public List<PipeState> addMapOfField(Field field){
 
