@@ -22,12 +22,13 @@ public class GamePlay {
 
     }
 
+//int row, int col, int moves
 
-    public GamePlay(int rowCount, int columnCount, int remainingMoves) {
-        this.rowCount = rowCount;
-        this.columnCount = columnCount;
-        this.remainingMoves=remainingMoves;
-    }
+//    public GamePlay(Field field) {
+//        this.rowCount = field.getRowCount();
+//        this.columnCount = field.getColumnCount();
+//        this.remainingMoves=field.getRemainingMoves();
+//    }
 
     public int getRowCount() {
         return rowCount;
@@ -53,7 +54,7 @@ public class GamePlay {
         this.remainingMoves = remainingMoves;
     }
 
-    public List<PipeState> addMapOfField(Field field){//int rowCount, int columnCount
+    public List<PipeState> addMapOfField(Tile tile){
 
         states=new ArrayList<>();
 
@@ -62,7 +63,7 @@ public class GamePlay {
                 states.add(field.getTile(i,j).getState());
             }
         }
-        //System.out.println(states);
+
         return states;
     }
 
@@ -73,6 +74,9 @@ public class GamePlay {
                 "rowCount=" + rowCount +
                 ", columnCount=" + columnCount +
                 ", remainingMoves=" + remainingMoves +
+                ", states=" + states +
+                ", tile=" + tile +
+                ", field=" + field +
                 '}';
     }
 }

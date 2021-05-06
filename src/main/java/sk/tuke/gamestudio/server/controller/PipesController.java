@@ -72,11 +72,21 @@ public class PipesController {
     }
 
     @RequestMapping("/saveGame")
-    public String saveGame(@RequestBody Field field){
+    public String saveGame(){
+
+
         GamePlay gameplay = new GamePlay();
-        gameplay.addMapOfField(field);
-        System.out.println(gameplay);
-        return "redirect:/";
+        for (int row = 0; row < field.getRowCount(); row++) {
+            for(int col=0; col<field.getColumnCount(); col++){
+                Tile tile = field.getTile(row, col);
+                gameplay.addMapOfField(tile);
+                System.out.println(tile);
+            }
+
+
+        }
+        System.err.println(gameplay);
+        return "pipes";
     }
 
     @RequestMapping("/new")

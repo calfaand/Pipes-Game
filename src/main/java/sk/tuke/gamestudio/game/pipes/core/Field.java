@@ -29,10 +29,6 @@ public class Field {
 
     }
 
-    public int getRemainingMoves() {
-        //gamePlay.setRemainingMoves(remainingMoves);         //urcite tu nastavovat tie rem.moves ?
-        return remainingMoves;
-    }
 
     public  Field(String path){         //toto je aktualny konstruktor
         File level= new File(path);
@@ -58,6 +54,10 @@ public class Field {
     }
 
 
+    public int getRemainingMoves() {
+        //gamePlay.setRemainingMoves(remainingMoves);         //urcite tu nastavovat tie rem.moves ?
+        return remainingMoves;
+    }
 
     private PipeState getPipe(int i){
         switch (i){
