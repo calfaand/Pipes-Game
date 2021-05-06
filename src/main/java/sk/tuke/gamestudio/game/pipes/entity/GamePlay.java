@@ -13,7 +13,7 @@ public class GamePlay {
     private int columnCount;
     private int remainingMoves;
     private List<PipeState> states;
-    private Tile tile;
+    private Tile[][] tile;
     private Field field;
 
    // private List<StateType> Statetype ;  list celeho pola v aktualnej pozicii
@@ -24,11 +24,12 @@ public class GamePlay {
 
 //int row, int col, int moves
 
-//    public GamePlay(Field field) {
-//        this.rowCount = field.getRowCount();
-//        this.columnCount = field.getColumnCount();
-//        this.remainingMoves=field.getRemainingMoves();
-//    }
+    public GamePlay(int r, int c, int m) {
+        this.rowCount = r;
+        this.columnCount = c;
+        this.remainingMoves=m;
+        field=new Field(rowCount,columnCount,remainingMoves);
+    }
 
     public int getRowCount() {
         return rowCount;

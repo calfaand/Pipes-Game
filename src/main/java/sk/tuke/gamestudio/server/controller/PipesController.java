@@ -73,16 +73,17 @@ public class PipesController {
 
     @RequestMapping("/saveGame")
     public String saveGame(){
-
-
-        GamePlay gameplay = new GamePlay();
+        int rowC=field.getRowCount();
+        int colC=field.getColumnCount();
+        int remM=field.getRemainingMoves();
+        GamePlay gameplay = new GamePlay(rowC, colC, remM);
         for (int row = 0; row < field.getRowCount(); row++) {
             for(int col=0; col<field.getColumnCount(); col++){
                 Tile tile = field.getTile(row, col);
                 gameplay.addMapOfField(tile);
+
                 System.out.println(tile);
             }
-
 
         }
         System.err.println(gameplay);
