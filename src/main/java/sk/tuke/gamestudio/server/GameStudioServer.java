@@ -11,7 +11,7 @@ import sk.tuke.gamestudio.service.*;
 
 @SpringBootApplication
 @Configuration
-@EntityScan({"sk.tuke.gamestudio.entity","sk.tuke.gamestudio.games.pipes"})//, "sk.tuke.gamestudio.games.pipes.entity"}
+@EntityScan({"sk.tuke.gamestudio.entity","sk.tuke.gamestudio.game.pipes"})//, "sk.tuke.gamestudio.games.pipes.entity"}
 public class GameStudioServer {
     public static void main(String[] args) {
         SpringApplication.run(GameStudioServer.class);
