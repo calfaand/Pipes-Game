@@ -1,7 +1,16 @@
 package sk.tuke.gamestudio.game.pipes.core;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 
+@Entity
 public class Tile {
+
+    @Id
+    @GeneratedValue
+    private int ident;
+
     private PipeState state;
 
     public PipeState getState() {

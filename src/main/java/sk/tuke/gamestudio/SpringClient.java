@@ -56,7 +56,7 @@ public class SpringClient {
 
     @Bean
     public Field field() {
-        return new Field(3, 3, 10);
+        return new Field();
     }
 
     @Bean(name="login")

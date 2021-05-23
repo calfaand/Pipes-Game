@@ -42,6 +42,7 @@ public class UserController {
     @RequestMapping("/login")
     public String login(String username, String password) throws NoSuchAlgorithmException {
         registered=false;
+        neuspesne=false;
 
 //        String myHash = hash(password);
 
@@ -93,8 +94,9 @@ public class UserController {
 
         userLoginService.setUserLogin(userlogin);
         registered=true;
+        neuspesne=false;
 
-        return "redirect:/";
+        return "redirect:/login";
 
     }
 

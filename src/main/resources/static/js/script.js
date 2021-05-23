@@ -6,7 +6,6 @@ const btnCloseModal = document.querySelectorAll('.close-modal');
 const overlay = document.querySelector('.overlay');
 const btnShowLogin =document.querySelector('.show-login');      //navbar login btn
 const btnShowReg = document.querySelector('.show-register');    //navbar reg btn
-const btnAddCom= document.querySelector('.addComm');        //btn na zobrazenie modal
 const openComm= document.querySelector('.ratCom');          //modal form komment
 
 
@@ -26,12 +25,7 @@ const closeModal = function(){
     overlay.classList.add('hidden');
 }
 
-const openComme = function (){
-    openComm.classList.remove('hidden');
-    overlay.classList.remove('hidden');
-}
-//
-// btnAddCom.addEventListener('click', openComme);
+
 
 
 let badlog= $.post("/login", function (){   //async .... robim request na /login
@@ -45,6 +39,7 @@ let badlog= $.post("/login", function (){   //async .... robim request na /login
         openLogin();
 
     })
+
 
 
 //

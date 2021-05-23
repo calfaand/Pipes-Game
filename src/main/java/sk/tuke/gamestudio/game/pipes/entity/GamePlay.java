@@ -1,52 +1,63 @@
 package sk.tuke.gamestudio.game.pipes.entity;
 
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import sk.tuke.gamestudio.entity.UserLogin;
+import org.springframework.context.annotation.Scope;
+import org.springframework.web.context.WebApplicationContext;
 import sk.tuke.gamestudio.game.pipes.core.Field;
 import sk.tuke.gamestudio.game.pipes.core.PipeState;
-import sk.tuke.gamestudio.game.pipes.core.Tile;
 
-import javax.annotation.Resource;
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
+@NamedQuery( name= "Gameplay.getGamepaly",
+        query="SELECT g FROM GamePlay g WHERE g.id =: id"
+)
+
+@SpringBootApplication
 @Entity
-public class GamePlay {
 
-    private int rowCount;
-    private int columnCount;
-    private int remainingMoves;
+public class GamePlay implements Serializable {
+
+    @Id
+    @GeneratedValue
+    private UUID id;
+
+    private String username;
+
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
+    @OneToOne(cascade = {CascadeType.ALL})
+    private Field field ;
 
     @ElementCollection
     private List<PipeState> states;
 
 
-    @Transient
-    private   Field field;
-
-    @Id
-    private String username;
-
-
     public GamePlay(){}
 
 
-    public GamePlay(int r, int c, int m,String name) {
-        this.rowCount = r;
-        this.columnCount = c;
-        this.remainingMoves=m;
+    public GamePlay(String name) {// Field field
+
         this.username=name;
-        field=new Field(rowCount,columnCount,remainingMoves);
+      //  this.field=field;
     }
 
+
+    public Field getField() {
+        return field;
+    }
 
     public void setField(Field field) {
         this.field = field;
-    }
-
-    public void setStates(List<PipeState> states) {
-        this.states = states;
     }
 
     public void setUsername(String username) {
@@ -57,46 +68,27 @@ public class GamePlay {
 
         states=new ArrayList<>();
 
-        for(int i=0; i<rowCount; i++){
-            for (int j=0; j< columnCount; j++){
+        for(int i=0; i<field.getRowCount(); i++){
+            for (int j=0; j< field.getColumnCount(); j++){
                 states.add(field.getTile(i,j).getState());
             }
         }
+        setField(field);
 
         return states;
     }
 
-    public int getRowCount() {
-        return rowCount;
-    }
+//    public Field getField() {
+//        return field;
+//    }
 
-    public void setRowCount(int rowCount) {
-        this.rowCount = rowCount;
-    }
-
-    public int getColumnCount() {
-        return columnCount;
-    }
-
-    public void setColumnCount(int columnCount) {
-        this.columnCount = columnCount;
-    }
-
-    public int getRemainingMoves() {
-        return remainingMoves;
-    }
-
-    public void setRemainingMoves(int remainingMoves) {
-        this.remainingMoves = remainingMoves;
-    }
 
     @Override
     public String toString() {
         return "GamePlay{" +
-                "rowCount=" + rowCount +
-                ", columnCount=" + columnCount +
-                ", remainingMoves=" + remainingMoves +
-                ", field=" + field +
+                //"field=" + field +
+                ", states=" + states +
+                ", username='" + username + '\'' +
                 '}';
     }
 }

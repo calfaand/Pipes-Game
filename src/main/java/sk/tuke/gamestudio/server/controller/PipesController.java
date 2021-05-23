@@ -18,10 +18,12 @@ import sk.tuke.gamestudio.game.pipes.core.Field;
 import sk.tuke.gamestudio.game.pipes.core.GameState;
 import sk.tuke.gamestudio.game.pipes.core.Tile;
 import sk.tuke.gamestudio.game.pipes.entity.GamePlay;
+import sk.tuke.gamestudio.game.pipes.service.GamePlayService;
 import sk.tuke.gamestudio.service.*;
 
 import java.util.Date;
 import java.util.Random;
+import java.util.UUID;
 
 import static java.lang.Integer.parseInt;
 
@@ -39,6 +41,13 @@ public class PipesController {
     @Autowired
     private UserController userController;
 
+    @Autowired
+    private GamePlayService gamePlayService;
+
+    private GamePlay play1;
+
+    // autowired gameplayservice
+
     private boolean win;
     private boolean lose;
 
@@ -53,7 +62,6 @@ public class PipesController {
        try{
            if(field.getState()== GameState.PLAYING){
                field.rotate(parseInt(row), parseInt(column));
-
 
                 if(field.getState() == GameState.SOLVED && userController.isLogged()) {
                     win=true;
@@ -70,22 +78,39 @@ public class PipesController {
 
        return "pipes" ;
     }
+    /*---------------------------------------------------------------------------------------*/
 
     @RequestMapping("/saveGame")
-    public String saveGame(){
-        int rowC=field.getRowCount();
-        int colC=field.getColumnCount();
-        int remM=field.getRemainingMoves();
+    public String savingGame(GamePlay gamePlay){
+
         String logged=userController.getLoggedUser().getUsername();
-        GamePlay gameplay = new GamePlay(rowC, colC, remM,logged);
 
-        gameplay.setField(field);
-        gameplay.setUsername(logged);
+        gamePlay.addMapOfField(field);
 
+        gamePlay.setUsername(logged);
 
-        System.err.println(gameplay);
+        gamePlayService.saveGame(gamePlay);
+        this.play1=gamePlay;
+
         return "pipes";
     }
+
+    @RequestMapping("/loadGame")
+    public String loadingGame(){
+
+        this.play1=gamePlayService.loadGame(play1.getId());
+
+        this.field= play1.getField();
+
+        return "pipes";
+    }
+
+
+
+
+
+
+    /*---------------------------------------------------------------------------------------*/
 
     @RequestMapping("/new")
     public String newGame(Model model,@RequestParam(required = false) String difficulty) throws RatingException, CommentException {
@@ -197,8 +222,6 @@ public class PipesController {
 
     @RequestMapping("/addComms")
     public String addRatComms(String rating, String contentOfComment, Model model) throws RatingException, CommentException {
-        System.out.println(contentOfComment);
-
 
         if(rating!=null){
             ratingService.setRating(new Rating("pipes", userController.getLoggedUser().getUsername(), parseInt(rating),new Date()));

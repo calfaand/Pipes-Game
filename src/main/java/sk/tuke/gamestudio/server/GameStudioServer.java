@@ -6,6 +6,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import sk.tuke.gamestudio.game.pipes.service.GamePlayService;
+import sk.tuke.gamestudio.game.pipes.service.GamePlayServiceJPA;
 import sk.tuke.gamestudio.service.*;
 
 
@@ -34,6 +36,10 @@ public class GameStudioServer {
     UserLoginService userLoginService(){
         return new UserLoginServiceJPA();
     }
+
+    @Bean
+    GamePlayService gamePlayService(){return new GamePlayServiceJPA(); }
+
 
 
 

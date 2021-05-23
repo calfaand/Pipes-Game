@@ -25,7 +25,7 @@ public class UserLoginServiceJPA implements UserLoginService {
             pw= ((UserLogin)entityManager.createNamedQuery("UserLogin.getPassword").setParameter("username", username).getSingleResult()).getPassword();
         }
         catch (NoResultException e){
-            System.err.println("neni take meno v db");
+            //treba tu chytat zle heslo a meno
         }
         return pw;
 

@@ -6,6 +6,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
+import java.util.UUID;
 
 @Transactional
 public class GamePlayServiceJPA implements GamePlayService{
@@ -16,14 +17,13 @@ public class GamePlayServiceJPA implements GamePlayService{
     @Override
     public void saveGame(GamePlay gamePlay) {           //ulozi do db cele stats z fieldu
         entityManager.persist(gamePlay);
+
     }
 
     @Override
-    public GamePlay loadGame() {
+    public GamePlay loadGame(UUID gameID) {
         try{
-            return (GamePlay) entityManager.createQuery(
-                //tuto nejaky select na get z db  .getSingleResult()
-            );
+            return (GamePlay) entityManager.createNamedQuery("Gameplay.getGamepaly").setParameter("id", gameID).getSingleResult();
 
         }
         catch (NoResultException e){
